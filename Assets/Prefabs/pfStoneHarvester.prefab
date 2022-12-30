@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6923371296103444301}
   - component: {fileID: 6923371296103444300}
+  - component: {fileID: -4909439204947314199}
+  - component: {fileID: 7815839281177105427}
   m_Layer: 0
   m_Name: pfStoneHarvester
   m_TagString: Untagged
@@ -84,3 +86,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4909439204947314199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6923371296103444303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1646284e5f3e90a43810f2ca32138285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7815839281177105427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6923371296103444303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e068df48f8c565f46bc9f679d22de9ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingType: {fileID: 11400000, guid: f9d70bd8f1af5e24bab9dfee2ca00058, type: 2}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804db654a09bdff4eaefdc60035c9d93, type: 3}
+  m_Name: GoldHarvester
+  m_EditorClassIdentifier: 
+  BuildingName: Gold Harvester
+  Prefab: {fileID: 6923371296103444301, guid: 37ddca82d0979344ea33c73bbef7dd3c, type: 3}
+  resourceGeneratorData:
+    timerMax: 2
+    resourceType: {fileID: 11400000, guid: 9fbcdd61372756747b2bed8babb3f0fb, type: 2}
