@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/BuildingType")]
 public class BuildingTypeSO : ScriptableObject
 {
-    public string BuildingName;
-    public Transform Prefab;
+    public string buildingName;
+    public Transform prefab;
     public ResourceGeneratorData resourceGeneratorData;
-    
+    public Sprite sprite;
 }
