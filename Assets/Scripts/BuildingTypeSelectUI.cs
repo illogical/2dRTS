@@ -16,8 +16,6 @@ public class BuildingTypeSelectUI : MonoBehaviour
     {
         Transform btnTemplate = transform.Find("btnTemplate");
         btnTemplate.gameObject.SetActive(false);
-
-        BuildingTypeListSO buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
         btnTransformDictionary = new Dictionary<BuildingTypeSO, Transform>();
 
         // create the arrow button for when no building is selected
@@ -26,6 +24,7 @@ public class BuildingTypeSelectUI : MonoBehaviour
         arrowButtonImage.GetComponent<Image>().sprite = arrowSprite;
         arrowButtonImage.GetComponent<RectTransform>().sizeDelta = new Vector2(0, -30); // make the icon smaller
 
+        BuildingTypeListSO buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
         int index = 1;
         foreach(BuildingTypeSO buildingType in buildingTypeList.list)
         {
