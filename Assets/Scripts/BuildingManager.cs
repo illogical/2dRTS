@@ -28,7 +28,7 @@ public class BuildingManager : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            if(activeBuildingType != null)
+            if(activeBuildingType != null && CanSpawnBuilding(activeBuildingType, GlobalUtils.GetMouseWorldPosition()))
             {
                 Instantiate(activeBuildingType.prefab, GlobalUtils.GetMouseWorldPosition(), Quaternion.identity);
             }
@@ -43,6 +43,19 @@ public class BuildingManager : MonoBehaviour
     {
         activeBuildingType = buildingType;
         OnActiveBuildingTypeChange?.Invoke(this, new OnActiveBuildingTypeChangedEventArgs { activeBuildingType = buildingType });
+    }
+
+    private bool CanSpawnBuilding(BuildingTypeSO buildingType, Vector3 position)
+    {
+        BoxCollider2D collider =  buildingType.prefab.GetComponent<BoxCollider2D>();
+
+        Collider2D[] collisions = Physics2D.OverlapBoxAll(position + (Vector3)collider.offset, collider.size, 0);
+
+        foreach(var collision in collisions) { 
+            
+        }
+
+        return collisions.Length == 0;
     }
 
 
