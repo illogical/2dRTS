@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class BuildingManager : MonoBehaviour
 {
+    [SerializeField] private float maxConstructionRadius = 25f;
     public static BuildingManager Instance { get; private set; }
 
     public event EventHandler<OnActiveBuildingTypeChangedEventArgs> OnActiveBuildingTypeChange;
@@ -49,13 +50,41 @@ public class BuildingManager : MonoBehaviour
     {
         BoxCollider2D collider =  buildingType.prefab.GetComponent<BoxCollider2D>();
 
-        Collider2D[] collisions = Physics2D.OverlapBoxAll(position + (Vector3)collider.offset, collider.size, 0);
+        Collider2D[] overlapColliders = Physics2D.OverlapBoxAll(position + (Vector3)collider.offset, collider.size, 0);
 
-        foreach(var collision in collisions) { 
-            
+        // check that the area is clear. check that other objects are not in the position where the player is trying to build
+        bool isAreaClear = overlapColliders.Length == 0;
+        if (!isAreaClear) { return false; }
+
+        // ensure the same type of building cannot be placed too close together
+        overlapColliders = Physics2D.OverlapCircleAll(position, buildingType.minContructionRadius);
+        foreach(var collision in overlapColliders) {
+            //collisions inside of the building radius
+
+            BuildingTypeHolder buildingTypeHolder = collision.GetComponent<BuildingTypeHolder>();
+            if(buildingTypeHolder != null)
+            {
+                // there is a BuildingTypeHolder so this must be a building
+                if(buildingTypeHolder.buildingType == buildingType)
+                {
+                    return false;
+                }
+            }
         }
 
-        return collisions.Length == 0;
+        // prevent building too far apart from other buildings
+        overlapColliders = Physics2D.OverlapCircleAll(position, maxConstructionRadius);
+        foreach (var collision in overlapColliders)
+        {
+            BuildingTypeHolder buildingTypeHolder = collision.GetComponent<BuildingTypeHolder>();
+            if (buildingTypeHolder != null)
+            {
+                // there is a BuildingTypeHolder so this must be a building
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

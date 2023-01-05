@@ -62,6 +62,7 @@ public class ResourceGenerator : MonoBehaviour
 
     public void OnDrawGizmos()
     {
+        if (resourceGeneratorData == null) { return; }
         // display the distance a building needs to be from a resource to include it
         Gizmos.DrawWireSphere(transform.position, resourceGeneratorData.resourceDetectionRadius);
 
