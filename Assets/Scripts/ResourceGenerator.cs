@@ -16,28 +16,12 @@ public class ResourceGenerator : MonoBehaviour
 
     private void Start()
     {
-        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, resourceGeneratorData.resourceDetectionRadius);
-
-        int nearbyResourceAmount = 0;
-        foreach(Collider2D collision in collisions)
-        {
-            ResourceNode resourceNode = collision.GetComponent<ResourceNode>();
-            if (resourceNode != null)
-            {
-                if (resourceNode.resourceType == resourceGeneratorData.resourceType)
-                {
-                    // same type
-                    nearbyResourceAmount++;
-                }
-            }
-        }
-
-        nearbyResourceAmount = Mathf.Clamp(nearbyResourceAmount, 0, resourceGeneratorData.maxResourceAmount);
-
-        if(nearbyResourceAmount == 0)
+        int nearbyResourceAmount = GetNearbyResourceAmount(resourceGeneratorData, transform.position);
+        if (nearbyResourceAmount == 0)
         {
             // No resource nodes are nearby
             // Disable resource generator
+            timerMax = 0;
             enabled = false;
         }
         else
@@ -60,11 +44,37 @@ public class ResourceGenerator : MonoBehaviour
         }
     }
 
+    public static int GetNearbyResourceAmount(ResourceGeneratorData resourceGeneratorData, Vector3 position)
+    {
+        Collider2D[] collisions = Physics2D.OverlapCircleAll(position, resourceGeneratorData.resourceDetectionRadius);
+
+        int nearbyResourceAmount = 0;
+        foreach (Collider2D collision in collisions)
+        {
+            ResourceNode resourceNode = collision.GetComponent<ResourceNode>();
+            if (resourceNode != null)
+            {
+                if (resourceNode.resourceType == resourceGeneratorData.resourceType)
+                {
+                    // same type
+                    nearbyResourceAmount++;
+                }
+            }
+        }
+
+        return Mathf.Clamp(nearbyResourceAmount, 0, resourceGeneratorData.maxResourceAmount);
+    }
+
+    public float GetTimerNormalized() => timerMax == 0 ? 0 : timer / timerMax;  // value between 0 and 1
+
+    public ResourceGeneratorData GetResourceGeneratorData() => resourceGeneratorData;
+
+    public float GetAmountGeneratedPerSecond() => timerMax == 0 ? 0 : 1 / timerMax;
+
     public void OnDrawGizmos()
     {
         if (resourceGeneratorData == null) { return; }
         // display the distance a building needs to be from a resource to include it
         Gizmos.DrawWireSphere(transform.position, resourceGeneratorData.resourceDetectionRadius);
-
     }
 }
