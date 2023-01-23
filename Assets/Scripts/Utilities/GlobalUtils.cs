@@ -29,5 +29,8 @@ namespace Assets.Scripts.Utilities
             mouseWorldPosition.z = 0;
             return mouseWorldPosition;
         }
+
+        public static Vector3 GetRandomDirection() => new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+
     }
 }

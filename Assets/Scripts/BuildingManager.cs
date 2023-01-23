@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class BuildingManager : MonoBehaviour
 {
     [SerializeField] private float maxConstructionRadius = 25f;
+    [SerializeField] private Building hqBuilding;
     public static BuildingManager Instance { get; private set; }
 
     public event EventHandler<OnActiveBuildingTypeChangedEventArgs> OnActiveBuildingTypeChange;
@@ -22,7 +23,7 @@ public class BuildingManager : MonoBehaviour
 
     void Start()
     {
-        buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);     
+        buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);     // BuildingTypeListSO was added to a Resources folder for this to work
     }
 
     void Update()
@@ -50,10 +51,16 @@ public class BuildingManager : MonoBehaviour
             }
         
         }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            Vector3 enemySpawnPosition = GlobalUtils.GetMouseWorldPosition() + GlobalUtils.GetRandomDirection() * 5f;
+            Enemy.Create(enemySpawnPosition);
+        }
     }
 
-    
 
+    public Building GetHQBuilding() => hqBuilding;
     public BuildingTypeSO GetActiveBuildingType() => activeBuildingType;
 
     public void SetActiveBuildingType(BuildingTypeSO buildingType)
