@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   nameString: Wood
+  nameShort: W
   sprite: {fileID: 21300000, guid: b68563d2338aa0a4e8181d0f419f7f89, type: 3}
+  colorHex: AE8351

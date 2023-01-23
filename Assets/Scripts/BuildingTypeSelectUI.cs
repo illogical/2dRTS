@@ -61,6 +61,19 @@ public class BuildingTypeSelectUI : MonoBehaviour
             BuildingManager.Instance.SetActiveBuildingType(buildingType);
         });
 
+        MouseEnterExitEvents mouseEnterExitEvents = btnTransform.GetComponent<MouseEnterExitEvents>();
+        mouseEnterExitEvents.OnMouseEnter += (object sender, EventArgs e) =>
+        {
+            TooltipUI.Instance.Show(buildingType != null
+                ? $"{buildingType.buildingName}\n{buildingType.GetConstructionCostString()}"
+                : "Select");
+        };
+
+        mouseEnterExitEvents.OnMouseExit += (object sender, EventArgs e) =>
+        {
+            TooltipUI.Instance.Hide();
+        };
+
         return btnTransform;
     }
 

@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,5 +35,30 @@ public class ResourceManager : MonoBehaviour
     public int GetResourceAmount(ResourceTypeSO resourceType)
     {
         return resourceAmountDictionary[resourceType];
+    }
+
+    public bool CanAfford(ResourceAmount[] resourceAmounts)
+    {
+        foreach (var resourceAmount in resourceAmounts)
+        {
+            if(GetResourceAmount(resourceAmount.resourceType) > resourceAmount.amount)
+            {
+                // can afford
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void SpendResources(ResourceAmount[] resourceAmounts)
+    {
+        foreach (var resourceAmount in resourceAmounts)
+        {
+            resourceAmountDictionary[resourceAmount.resourceType] -= resourceAmount.amount;
+        }
     }
 }
