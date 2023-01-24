@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     private Transform targetTransform;
     private Rigidbody2D rigidbody2d;
+    private HealthSystem healthSystem;
     private float lookForTargetTimer;
     private float lookForTargetTimerMax = 0.2f;
 
@@ -25,9 +26,16 @@ public class Enemy : MonoBehaviour
     {
         targetTransform = BuildingManager.Instance.GetHQBuilding().transform;
         rigidbody2d = GetComponent<Rigidbody2D>();
+        healthSystem = GetComponent<HealthSystem>();
+        healthSystem.OnDied += HealthSystem_OnDied;
 
         // randomize when each enemy will be checking for nearby buildings (so they are not all checking on the same frame)
         lookForTargetTimer = Random.Range(0f, lookForTargetTimerMax);
+    }
+
+    private void HealthSystem_OnDied(object sender, System.EventArgs e)
+    {
+        Destroy(gameObject);
     }
 
     private void Update()
