@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6169811566956450688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4640065351516877180}
+  m_Layer: 0
+  m_Name: projectileSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4640065351516877180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6169811566956450688}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.07, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6923371296103444301}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6923371296103444303
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,6 +45,7 @@ GameObject:
   - component: {fileID: 1561138924286922105}
   - component: {fileID: -8690594026495085174}
   - component: {fileID: -3312916951802684389}
+  - component: {fileID: -5458394189327574424}
   m_Layer: 0
   m_Name: pfHQ
   m_TagString: Untagged
@@ -36,6 +68,7 @@ Transform:
   - {fileID: 6808518847118562500}
   - {fileID: 8376593818967524945}
   - {fileID: 6619989682626289749}
+  - {fileID: 4640065351516877180}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56979528062cad46bdbabd219478f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthAmountMax: 0
 --- !u!114 &-3312916951802684389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +148,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c56a8c3dc09831247a6b521c5e99d546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5458394189327574424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6923371296103444303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de148e75a4f7fbb42bb38d68447d29de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMaxRadius: 20
+  shootTimerMax: 0.2
 --- !u!1001 &3809413722998271663
 PrefabInstance:
   m_ObjectHideFlags: 0
