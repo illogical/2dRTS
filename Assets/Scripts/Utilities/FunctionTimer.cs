@@ -47,7 +47,7 @@ public class FunctionTimer
             if(timer <= 0)
             {
                 action();
-                if(!runOnce)
+                if(runOnce)
                 {
                     DestroySelf();
                 }
@@ -63,5 +63,15 @@ public class FunctionTimer
     {
         isDestroyed = true;
         UnityEngine.Object.Destroy(gameObject);
+    }
+
+    public void SetTimer(float timer, bool resetImmediately = false)
+    {
+        timerMax = timer;
+
+        if (resetImmediately)
+        {
+            this.timer = timer;
+        }
     }
 }
