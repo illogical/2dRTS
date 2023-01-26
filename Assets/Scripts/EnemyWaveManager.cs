@@ -82,4 +82,5 @@ public class EnemyWaveManager : MonoBehaviour
     private Vector3 GetRandomSpawnPosition() => spawnPositionTransformList[UnityEngine.Random.Range(0, spawnPositionTransformList.Count)].position;
     public int GetWaveNumber() => waveNumber;
     public float GetNextWaveTimer() => waitingToSpawnNextWaveTimer.GetTimer();
+    public Vector3 GetSpawnPosition() => spawnPosition;
 }
