@@ -1,4 +1,5 @@
 using Assets.Scripts.Utilities;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class EnemyWaveManager : MonoBehaviour
         WaitingToSpawnNextWave,
         SpawningWave
     }
+
+    public event EventHandler OnWaveNumberChanged;
 
     [SerializeField] private float waveTimerMax = 10f;
     [SerializeField] private float timeBetweenSpawns = 0.2f;
@@ -32,7 +35,7 @@ public class EnemyWaveManager : MonoBehaviour
         nextSpawnPositionTransform.position = spawnPosition;
 
         waitingToSpawnNextWaveTimer = FunctionTimer.Create(WaitingToSpawnNextWave, 3f); // start the first wave after 3 seconds
-        spawnTimer = FunctionTimer.Create(SpawningWave, Random.Range(0, timeBetweenSpawns));
+        spawnTimer = FunctionTimer.CreateRandom(SpawningWave, 0, timeBetweenSpawns); // spreads out the timing of the spawns
     }
 
 
@@ -55,15 +58,15 @@ public class EnemyWaveManager : MonoBehaviour
         }
 
         if (remainingEnemySpawnAmount > 0f)
-        {
-            spawnTimer.SetTimer(Random.Range(0, timeBetweenSpawns));    // spreads out the timing of the spawns
-            Enemy.Create(spawnPosition + GlobalUtils.GetRandomDirection() * Random.Range(0, waveSpreadDistanceMax));
+        { 
+            Enemy.Create(spawnPosition + GlobalUtils.GetRandomDirection() * UnityEngine.Random.Range(0, waveSpreadDistanceMax));
             remainingEnemySpawnAmount--;
 
             if (remainingEnemySpawnAmount <= 0)
             {
                 spawnPosition = GetRandomSpawnPosition();
                 nextSpawnPositionTransform.position = spawnPosition;
+                waitingToSpawnNextWaveTimer.SetTimer(waveTimerMax);
                 state = State.WaitingToSpawnNextWave;
             }
         }
@@ -71,10 +74,12 @@ public class EnemyWaveManager : MonoBehaviour
 
     private void SpawnWave()
     {
-        waitingToSpawnNextWaveTimer.SetTimer(10f);
         remainingEnemySpawnAmount = initialSpawnCount + 3 * waveNumber;
         waveNumber++;
+        OnWaveNumberChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private Vector3 GetRandomSpawnPosition() => spawnPositionTransformList[Random.Range(0, spawnPositionTransformList.Count)].position;
+    private Vector3 GetRandomSpawnPosition() => spawnPositionTransformList[UnityEngine.Random.Range(0, spawnPositionTransformList.Count)].position;
+    public int GetWaveNumber() => waveNumber;
+    public float GetNextWaveTimer() => waitingToSpawnNextWaveTimer.GetTimer();
 }
