@@ -66,6 +66,7 @@ public class EnemyWaveUI : MonoBehaviour
         if(targetEnemy == null)
         {
             enemyClosestPositionIndicator.gameObject.SetActive(false);
+            return;
         }
 
         Vector3 directionToClosestEnemyPosition = (targetEnemy.transform.position - mainCamera.transform.position).normalized;
