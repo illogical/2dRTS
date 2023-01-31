@@ -8,6 +8,7 @@ public class BuildingConstruction : MonoBehaviour
     private BuildingTypeSO buildingType;
     private BoxCollider2D boxCollider;
     private SpriteRenderer spriteRenderer;
+    private Material constructionMaterial;
     private BuildingTypeHolder buildingTypeHolder;
     private FunctionTimer constructionTimer;
 
@@ -24,8 +25,10 @@ public class BuildingConstruction : MonoBehaviour
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
-        spriteRenderer = transform.Find("sprite").GetComponent<SpriteRenderer>();
         buildingTypeHolder = GetComponent<BuildingTypeHolder>();
+
+        spriteRenderer = transform.Find("sprite").GetComponent<SpriteRenderer>();
+        constructionMaterial = spriteRenderer.material;
     }
 
     void Start()
@@ -35,7 +38,7 @@ public class BuildingConstruction : MonoBehaviour
 
     void Update()
     {
-        
+        constructionMaterial.SetFloat("_Progress", GetConstuctionTimerNormalized());
     }
 
     private void StartConstruction(BuildingTypeSO buildingType)
