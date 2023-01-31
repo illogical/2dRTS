@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ public class BuildingConstruction : MonoBehaviour
     private float constructionTimerMax;
     private BuildingTypeSO buildingType;
     private BoxCollider2D boxCollider;
+    private SpriteRenderer spriteRenderer;
+    private BuildingTypeHolder buildingTypeHolder;
+    private FunctionTimer constructionTimer;
 
     public static BuildingConstruction Create(Vector3 position, BuildingTypeSO buildingType)
     {
@@ -20,6 +24,8 @@ public class BuildingConstruction : MonoBehaviour
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
+        spriteRenderer = transform.Find("sprite").GetComponent<SpriteRenderer>();
+        buildingTypeHolder = GetComponent<BuildingTypeHolder>();
     }
 
     void Start()
@@ -34,12 +40,15 @@ public class BuildingConstruction : MonoBehaviour
 
     private void StartConstruction(BuildingTypeSO buildingType)
     {
-        constructionTimerMax = buildingType.constructionTimerMax;
         this.buildingType = buildingType;
+        buildingTypeHolder.buildingType = buildingType;
+
         boxCollider.offset = buildingType.prefab.GetComponent<BoxCollider2D>().offset;
         boxCollider.size = buildingType.prefab.GetComponent<BoxCollider2D>().size;
+        spriteRenderer.sprite = buildingType.sprite;
 
-        FunctionTimer.Create(onConstructionComplete, constructionTimerMax, true);
+        constructionTimerMax = buildingType.constructionTimerMax;
+        constructionTimer = FunctionTimer.Create(onConstructionComplete, constructionTimerMax, true);
     }
 
     private void onConstructionComplete()
@@ -49,4 +58,7 @@ public class BuildingConstruction : MonoBehaviour
         Instantiate(buildingType.prefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
+
+    public float GetConstuctionTimerNormalized() => 1 - (constructionTimer?.GetTimer() / constructionTimerMax ?? 0);
+
 }
